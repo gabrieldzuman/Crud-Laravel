@@ -8,18 +8,25 @@ use Illuminate\Http\Request;
 class TrustProxies extends Middleware
 {
     /**
-     * The trusted proxies for this application.
+     * Lista de proxies confiáveis.
+     * 
+     * Pode ser:
+     * - Um array com IPs específicos: ['192.168.1.1', '10.0.0.1']
+     * - '*' para confiar em todos (com cuidado!)
+     * - null para usar o comportamento padrão
      *
-     * @var array<int, string>|string|null
+     * @var array<string>|string|null
      */
-    protected $proxies;
+    protected array|string|null $proxies = '*'; // ou use env('TRUSTED_PROXIES', '*');
 
     /**
-     * The headers that should be used to detect proxies.
+     * Cabeçalhos usados para detectar o endereço original do cliente atrás do proxy.
+     *
+     * HEADER_X_FORWARDED_AWS_ELB é útil para apps rodando atrás do Elastic Load Balancer (AWS).
      *
      * @var int
      */
-    protected $headers =
+    protected int $headers =
         Request::HEADER_X_FORWARDED_FOR |
         Request::HEADER_X_FORWARDED_HOST |
         Request::HEADER_X_FORWARDED_PORT |
