@@ -7,11 +7,14 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance as Mi
 class PreventRequestsDuringMaintenance extends Middleware
 {
     /**
-     * The URIs that should be reachable while maintenance mode is enabled.
+     * URIs que continuarão acessíveis durante o modo de manutenção.
      *
-     * @var array<int, string>
+     * Use isso para permitir acessos a rotas de monitoramento,
+     * webhooks de terceiros ou endpoints específicos.
+     *
+     * @var array<string>
      */
-    protected $except = [
-        //
+    protected array $except = [
+        // Exemplo: 'status', 'api/health', 'webhook/external-service'
     ];
 }
