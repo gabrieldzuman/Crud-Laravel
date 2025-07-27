@@ -7,14 +7,17 @@ use Illuminate\Http\Middleware\TrustHosts as Middleware;
 class TrustHosts extends Middleware
 {
     /**
-     * Get the host patterns that should be trusted.
+     * Define os padrões de hosts confiáveis para a aplicação.
+     * 
+     * Isso ajuda a proteger contra ataques de Host Header Injection,
+     * permitindo apenas domínios autorizados.
      *
-     * @return array<int, string|null>
+     * @return array<string|null>
      */
-    public function hosts()
+    public function hosts(): array
     {
         return [
-            $this->allSubdomainsOfApplicationUrl(),
+            $this->allSubdomainsOfApplicationUrl()
         ];
     }
 }
